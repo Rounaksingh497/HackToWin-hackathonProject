@@ -19,7 +19,7 @@ app.use(express.json());
 const JWT_SECRET = 'your_super_secret_key_for_jsonwebtoken'; // Use a strong, unique secret key
 
 // --- Database Connection (MongoDB) ---
-const dbURI = "mongodb+srv://santusaha27481:HCOhkafsRd77fBBR@cluster0.whjmfvc.mongodb.net/hacktowindatabase?retryWrites=true&w=majority&appName=Cluster0";
+const dbURI = process.env.MONGODB_URI;
 
 mongoose.connect(dbURI)
     .then(() => console.log('✅ Successfully connected to the Hacktowin database!'))
