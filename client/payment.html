@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Plan - Checkout</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-content { transition: opacity 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
+
+            <div class="lg:col-span-1 order-last lg:order-first">
+                <h2 class="text-2xl font-bold text-gray-100 mb-6">Order Summary</h2>
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-indigo-600/50">
+                    <div class="card-header bg-indigo-600 text-white p-6 text-center">
+                        <h3 class="text-2xl font-bold">Pro</h3>
+                        <p class="card-subtitle opacity-80 mt-1">For professionals and companies</p>
+                        <div class="price flex justify-center items-baseline my-4">
+                            <span class="currency text-3xl font-semibold">₹</span>
+                            <span class="amount text-6xl font-bold">1999</span>
+                        </div>
+                        <p class="period opacity-80">per month</p>
+                    </div>
+                    <div class="card-body p-6">
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-center"><i data-lucide="check" class="icon-check text-indigo-400 mr-3"></i> Unlimited events</li>
+                            <li class="flex items-center"><i data-lucide="check" class="icon-check text-indigo-400 mr-3"></i> Custom branding for events</li>
+                            <li class="flex items-center"><i data-lucide="check" class="icon-check text-indigo-400 mr-3"></i> Advanced judging tools</li>
+                            <li class="flex items-center"><i data-lucide="check" class="icon-check text-indigo-400 mr-3"></i> <span class="font-semibold text-gray-100">AI plagiarism detection</span></li>
+                            <li class="flex items-center"><i data-lucide="check" class="icon-check text-indigo-400 mr-3"></i> Priority support</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer p-6 bg-gray-800 border-t border-gray-700">
+                        <p class="text-sm text-gray-400 text-center">You will be billed monthly. You can cancel anytime.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <h2 class="text-2xl font-bold text-gray-100 mb-6">Payment Details</h2>
+                <div class="bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 border border-gray-700">
+                    
+                    <div class="flex border-b border-gray-700 mb-6">
+                        <button id="card-tab" class="payment-tab py-2 px-4 border-b-2 border-indigo-500 text-indigo-400 font-semibold">Card Payment</button>
+                        <button id="upi-tab" class="payment-tab py-2 px-4 text-gray-400 font-semibold">UPI / QR Code</button>
+                    </div>
+
+                    <div id="card-payment" class="tab-content">
+                        <form id="payment-form" novalidate>
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="card-name" class="block text-sm font-medium text-gray-300 mb-1">Cardholder Name</label>
+                                    <input type="text" id="card-name" placeholder="Rounak Singh" required class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1">
+                                </div>
+                                <div>
+                                    <label for="card-element" class="block text-sm font-medium text-gray-300 mb-1">Card Details</label>
+                                    <div id="card-element" class="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-700"></div>
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="card-errors"></p>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <button type="submit" id="submit-button" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-4 rounded-lg transition duration-300 flex items-center justify-center">
+                                    <span id="button-text">Pay ₹1999</span>
+                                    <svg id="spinner" class="animate-spin h-5 w-5 text-white hidden ml-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="upi-payment" class="tab-content hidden">
+                        <div class="flex flex-col items-center text-center">
+                            <h3 class="text-lg font-semibold text-gray-100">Scan to Pay</h3>
+                            <p class="text-gray-400 mt-1 mb-4">Use any UPI app like Google Pay, PhonePe, or Paytm.</p>
+                            <img src="WhatsApp Image 2025-08-19 at 11.29.37_ae178dd0.jpg" alt="UPI QR Code" class="w-64 h-64 rounded-lg shadow-md border border-gray-600" onerror="this.onerror=null;this.src='https://placehold.co/256x256/e2e8f0/4a5568?text=QR+Code';">
+                            <p class="mt-4 font-mono bg-gray-700 px-3 py-2 rounded-md text-gray-300">santusaha27481@oksbi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="message-popup" class="fixed top-5 right-5 p-4 rounded-lg text-white transition-transform transform translate-x-[150%] hidden">
+        <p id="message-text"></p>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- Tab Switching Logic ---
+        const cardTab = document.getElementById('card-tab');
+        const upiTab = document.getElementById('upi-tab');
+        const cardPaymentDiv = document.getElementById('card-payment');
+        const upiPaymentDiv = document.getElementById('upi-payment');
+        cardTab.addEventListener('click', () => switchTab(cardTab));
+        upiTab.addEventListener('click', () => switchTab(upiTab));
+
+        function switchTab(activeTab) {
+            [cardTab, upiTab].forEach(tab => {
+                tab.classList.remove('border-indigo-500', 'text-indigo-400');
+                tab.classList.add('text-gray-400', 'border-transparent');
+            });
+            activeTab.classList.add('border-indigo-500', 'text-indigo-400');
+            [cardPaymentDiv, upiPaymentDiv].forEach(content => content.classList.add('hidden'));
+            if (activeTab === cardTab) cardPaymentDiv.classList.remove('hidden');
+            else upiPaymentDiv.classList.remove('hidden');
+        }
+
+        // --- Stripe Payment Logic ---
+        // IMPORTANT: Replace with your actual publishable key from your Stripe dashboard.
+        const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY_HERE'); 
+        
+        const form = document.getElementById('payment-form');
+        const submitButton = document.getElementById('submit-button');
+        const buttonText = document.getElementById('button-text');
+        const spinner = document.getElementById('spinner');
+        const cardErrors = document.getElementById('card-errors');
+        
+        // --- Stripe Elements Setup ---
+        const elements = stripe.elements();
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    color: '#ffffff', // Text color
+                    iconColor: '#a5b4fc', // A lighter indigo for the card icon
+                    fontSize: '16px',
+                    fontFamily: 'Inter, sans-serif',
+                    '::placeholder': {
+                        color: '#9ca3af' // Tailwind's gray-400
+                    },
+                },
+                invalid: {
+                    color: '#ef4444', // Tailwind's red-500
+                    iconColor: '#ef4444'
+                }
+            },
+        });
+        cardElement.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        cardElement.on('change', (event) => {
+            if (event.error) {
+                cardErrors.textContent = event.error.message;
+                cardErrors.classList.remove('hidden');
+            } else {
+                cardErrors.classList.add('hidden');
+            }
+        });
+
+        // --- Form Submission ---
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            setLoading(true);
+
+            // 1. Create Payment Intent on your backend server
+            // This fetch call communicates with the server.js file.
+            const response = await fetch('http://localhost:4242/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: 199900 }), // Amount in paise (₹1999.00)
+            });
+            const { clientSecret, error: backendError } = await response.json();
+
+            if (backendError) {
+                showMessage(backendError, false);
+                setLoading(false);
+                return;
+            }
+
+            // 2. Confirm the card payment with Stripe using the clientSecret
+            const cardholderName = document.getElementById('card-name').value;
+            const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: cardholderName,
+                    },
+                },
+            });
+
+            if (stripeError) {
+                showMessage(stripeError.message, false);
+                setLoading(false);
+                return;
+            }
+
+            // 3. Handle the result of the payment
+            if (paymentIntent.status === 'succeeded') {
+                showMessage('Payment successful! Your subscription is active.', true);
+                form.reset();
+                cardElement.clear();
+            } else {
+                showMessage('Payment was not successful. Please try again.', false);
+            }
+            
+            setLoading(false);
+        });
+
+        // --- UI Helper Functions ---
+        function setLoading(isLoading) {
+            submitButton.disabled = isLoading;
+            spinner.classList.toggle('hidden', !isLoading);
+            buttonText.classList.toggle('hidden', isLoading);
+        }
+
+        const messagePopup = document.getElementById('message-popup');
+        const messageText = document.getElementById('message-text');
+        function showMessage(message, isSuccess = true) {
+            messageText.textContent = message;
+            messagePopup.className = `fixed top-5 right-5 p-4 rounded-lg text-white transition-transform transform ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`;
+            setTimeout(() => { messagePopup.classList.remove('translate-x-[150%]'); }, 10);
+            setTimeout(() => { messagePopup.classList.add('translate-x-[150%]'); }, 5000);
+        }
+    </script>
+</body>
+</html>
