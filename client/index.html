@@ -658,6 +658,16 @@
         </div>
     </div>
 
+    <div id="menuContentPopup" class="menu-popup hidden">
+        <div class="menu-popup-card">
+            <button class="popup-close" onclick="closeMenuPopup()">×</button>
+            <h3 id="popupTitle">Section Title</h3>
+            <div id="popupContent">
+                <!-- Dynamic content injected here -->
+            </div>
+        </div>
+    </div>
+
     <script>
        // Initialize Lucide icons
         document.addEventListener('DOMContentLoaded', () => {
@@ -895,71 +905,210 @@
                             <div class="dropdown-user-name">${name}</div>
                             <div class="dropdown-user-email">${email}</div>
                         </div>
+                        <!-- Dropdown Menu -->
                         <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">
-                                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                        <circle cx="12" cy="7" r="4"/>
-                                    </svg>
-                                    Your Profile
-                                </a>
-                                
-                                <a href="#" class="dropdown-item">
-                                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M12 20h9"/>
-                                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                                    </svg>
-                                    Edit Profile
-                                </a>
-                                
-                                <a href="#" class="dropdown-item">
-                                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M4 7V4a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7.414 7.414a1 1 0 0 1 0 1.414l-7.414 7.414A1 1 0 0 1 9.586 20H5a1 1 0 0 1-1-1v-3"/>
-                                        <path d="M2 7h20"/>
-                                    </svg>
-                                    Dashboard
-                                </a>
-                                
-                                <a href="#" class="dropdown-item">
-                                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="3"/>
-                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
-                                    </svg>
-                                    Settings
-                                </a>
-                                
-                                <a href="#" class="dropdown-item">
-                                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <path d="M12 6v6l4 2"/>
-                                    </svg>
-                                    Activity
-                                </a>
-                                
-                                <div class="dropdown-separator"></div>
-                                
-                                <a href="#" class="dropdown-item">
-                                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <path d="m9 12 2 2 4-4"/>
-                                    </svg>
-                                    Help & Support
-                                </a>
-                                
-                                <a href="#" class="dropdown-item danger" onclick="logout()">
-                                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                                        <polyline points="16,17 21,12 16,7"/>
-                                        <line x1="21" y1="12" x2="9" y2="12"/>
-                                    </svg>
-                                    Sign Out
-                                </a>
-                            </div>
+                            <a href="#" class="dropdown-item" onclick="openMenuPopup('profile')">
+                                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                Your Profile
+                            </a>
+
+                            <a href="#" class="dropdown-item" onclick="openMenuPopup('edit')">
+                                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 20h9"/>
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                                </svg>
+                                Edit Profile
+                            </a>
+
+                            <a href="#" class="dropdown-item" onclick="openMenuPopup('dashboard')">
+                                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 7V4a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7.414 7.414a1 1 0 0 1 0 1.414l-7.414 7.414A1 1 0 0 1 9.586 20H5a1 1 0 0 1-1-1v-3"/>
+                                    <path d="M2 7h20"/>
+                                </svg>
+                                Dashboard
+                            </a>
+
+                            <a href="#" class="dropdown-item" onclick="openMenuPopup('settings')">
+                                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                                </svg>
+                                Settings
+                            </a>
+
+                            <a href="#" class="dropdown-item" onclick="openMenuPopup('activity')">
+                                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                Activity
+                            </a>
+
+                            <div class="dropdown-separator"></div>
+
+                            <a href="#" class="dropdown-item" onclick="openMenuPopup('support')">
+                                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="m9 12 2 2 4-4"/>
+                                </svg>
+                                Help & Support
+                            </a>
+
+                            <a href="#" class="dropdown-item danger" onclick="logout()">
+                                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                    <polyline points="16,17 21,12 16,7"/>
+                                    <line x1="21" y1="12" x2="9" y2="12"/>
+                                </svg>
+                                Sign Out
+                            </a>
+                        </div>
                     </div>
                 </div>
             `;
+
         }
 
+        
+        const popupContentData = {
+            profile: {
+                title: "Profile Info.",
+                html: `
+                    <div class="section-label">Status</div>
+                    <div><span class="status-active">● Active</span></div>
+
+                    <div class="section-label">Member Since</div>
+                    <div>January 2024</div>
+
+                    <div class="section-label">Username</div>
+                    <div>@dev_john</div>
+
+                    <div class="section-label">Location</div>
+                    <div>San Francisco, CA</div>
+
+                    <div class="section-label">Email</div>
+                    <div>john.doe@example.com</div>
+
+                    <div class="section-label">Phone</div>
+                    <div>+1 415 123 4567</div>
+
+                    <div class="section-label">Bio</div>
+                    <div>
+                        Passionate developer and technology enthusiast with over 5 years of experience in full-stack development.<br>
+                        Loves solving problems and building user-centric applications.
+                    </div>
+                `
+            },
+
+            edit: {
+                title: "Edit Profile",
+                html: `
+                    <div class="section-label">Name</div>
+                    <input type="text" value="John Doe" class="input-field"/>
+
+                    <div class="section-label">Username</div>
+                    <input type="text" value="dev_john" class="input-field"/>
+
+                    <div class="section-label">Email</div>
+                    <input type="email" value="john.doe@example.com" class="input-field"/>
+
+                    <div class="section-label">Bio</div>
+                    <textarea class="input-field">Passionate developer and technology enthusiast...</textarea>
+
+                    <button class="btn-save">Save Changes</button>
+                `
+            },
+
+            dashboard: {
+                title: "Your Dashboard",
+                html: `
+                    <div class="section-label">Events Participated</div>
+                    <div>14 total events</div>
+
+                    <div class="section-label">Achievements</div>
+                    <ul>
+                        <li>🏆 Hackathon Winner 2024</li>
+                        <li>🥈 2nd Place – DevFest 2023</li>
+                        <li>💡 Top Innovator – CodeRush 2022</li>
+                    </ul>
+
+                    <div class="section-label">Next Event</div>
+                    <div>AI Builders Meetup – Sep 10, 2025</div>
+                `
+            },
+
+            settings: {
+                title: "Settings",
+                html: `
+                    <div class="section-label">Theme</div>
+                    <select class="input-field">
+                        <option>System Default</option>
+                        <option selected>Dark Mode</option>
+                        <option>Light Mode</option>
+                    </select>
+
+                    <div class="section-label">Notifications</div>
+                    <label><input type="checkbox" checked/> Email Alerts</label><br/>
+                    <label><input type="checkbox"/> SMS Alerts</label>
+
+                    <div class="section-label">Language</div>
+                    <select class="input-field">
+                        <option>English</option>
+                        <option>Spanish</option>
+                        <option>German</option>
+                    </select>
+                `
+            },
+
+            activity: {
+                title: "Activity Log",
+                html: `
+                    <div class="section-label">Recent Actions</div>
+                    <ul>
+                        <li>📅 Registered for "Open Source Jam" – 2 days ago</li>
+                        <li>📝 Updated profile information – 4 days ago</li>
+                        <li>🚀 Submitted project to "TechSprint 2025" – 1 week ago</li>
+                        <li>🏁 Joined "AI Challenge" – 2 weeks ago</li>
+                    </ul>
+                `
+            },
+
+            support: {
+                title: "Help & Support",
+                html: `
+                    <div class="section-label">Need help?</div>
+                    <div>You can contact us anytime at <a href="mailto:support@example.com">support@example.com</a>.</div>
+
+                    <div class="section-label">Help Center</div>
+                    <ul>
+                        <li><a href="#">Account Management</a></li>
+                        <li><a href="#">Event Registration Guide</a></li>
+                        <li><a href="#">Security & Privacy</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+
+                    <div class="section-label">Live Chat</div>
+                    <div>Our agents are available from 9 AM – 6 PM PST</div>
+                `
+            }
+        };
+
+
+        function openMenuPopup(key) {
+            const data = popupContentData[key];
+            if (data) {
+                document.getElementById("popupTitle").textContent = data.title;
+                document.getElementById("popupContent").innerHTML = data.html;
+                document.getElementById("menuContentPopup").classList.remove("hidden");
+            }
+        }
+
+        function closeMenuPopup() {
+            document.getElementById("menuContentPopup").classList.add("hidden");
+        }
 
         // Dropdown Handling
         let dropdownOpen = false;
@@ -1089,6 +1238,42 @@
             document.getElementById(`${type}-dashboard`).style.display = 'block';
             event.target.classList.add('active');
         }
+
+        function showProfile(user) {
+            const profileContainer = document.getElementById('profileContainer');
+            profileContainer.innerHTML = '';
+
+            const profileCard = document.createElement('div');
+            profileCard.className = 'profile-card';
+
+            profileCard.innerHTML = `
+                <div class="profile-header">
+                    <div class="avatar">${user.initials}</div>
+                    <div>
+                        <h3>${user.name}</h3>
+                        <p>${user.email}</p>
+                    </div>
+                </div>
+                <div class="profile-body">
+                    <p><strong>Username:</strong> ${user.username}</p>
+                    <p><strong>Joined:</strong> ${new Date(user.joinedDate).toLocaleDateString()}</p>
+                    <p><strong>Bio:</strong> ${user.bio || 'No bio added yet.'}</p>
+                    <div class="interests">
+                        <strong>Interests:</strong>
+                        <div class="tags">${user.interests.map(tag => `<span>${tag}</span>`).join('')}</div>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button onclick="editProfile()">Edit Profile</button>
+                    <button onclick="viewActivity()">View Activity</button>
+                </div>
+            `;
+
+            profileContainer.appendChild(profileCard);
+
+            openModal('profileModal');
+        }
+
 
     </script>
 </body>
