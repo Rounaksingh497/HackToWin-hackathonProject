@@ -1439,6 +1439,7 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            overflow-y: auto;
         }
         
         .modal.active {
@@ -1453,6 +1454,8 @@
             max-width: 500px;
             width: 90%;
             position: relative;
+            max-height: 90vh;       /* Ensures modal never exceeds viewport height */
+            overflow-y: auto;
         }
         
         .modal-close {

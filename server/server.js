@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // --- Configuration ---
-const JWT_SECRET = 'your_super_secret_key_for_jsonwebtoken'; // Use a strong, unique secret key
+const JWT_SECRET = process.env.JWT_SECRET; // Use a strong, unique secret key
 
 // --- Database Connection (MongoDB) ---
 const dbURI = process.env.MONGODB_URI;
