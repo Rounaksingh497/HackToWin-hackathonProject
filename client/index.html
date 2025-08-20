@@ -140,7 +140,7 @@
                     <h3>Event Creation & Management</h3>
                     <p>Create and manage events with custom themes, tracks, rules, timelines, prizes, and sponsor integrations. Support for both online and offline events.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="showEvents()">
                     <div class="feature-icon">
                         <svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
@@ -149,7 +149,7 @@
                     <h3>Smart Registration & Teaming</h3>
                     <p>Streamlined registration process with team formation tools, invitation system, and multiple authentication options including social login.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="location.href='https://forms.gle/JvcuBvYPkJ5sXhmn6'">
                     <div class="feature-icon">
                         <svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M12 3a1 1 0 0 1 .78.375l4 5a1 1 0 1 1-1.56 1.25L13 6.85V14a1 1 0 1 1-2 0V6.85L8.78 9.626a1 1 0 1 1-1.56-1.25l4-5A1 1 0 0 1 12 3ZM9 14v-1H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-4v1a3 3 0 1 1-6 0Zm8 2a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z" clip-rule="evenodd"/>
@@ -158,7 +158,7 @@
                     <h3>Project Submission & Evaluation</h3>
                     <p>Comprehensive submission system supporting docs, GitHub repos, and videos. Advanced judging tools with scoring and feedback mechanisms.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="toggleChatbot()">
                     <div class="feature-icon">
                         <svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
@@ -168,7 +168,8 @@
                     <h3>Real-time Communication</h3>
                     <p>Live announcements, automated reminders, Q&A channels, and real-time updates to keep everyone connected and informed.</p>
                 </div>
-                <div class="feature-card">
+               <div class="feature-card" onclick="href='#dashboard-Preview'">
+
                     <div class="feature-icon">
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <!-- Dashboard layout (grid) -->
@@ -291,7 +292,7 @@
                     <h3>Create or Join</h3>
                     <p>Organizers can create events with custom configurations, while participants can browse and join events that match their interests and skills.</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card" >
                     <div class="step-number">2</div>
                     <h3>Form Teams & Collaborate</h3>
                     <p>Use our smart team formation tools to find the perfect teammates, send invitations, and collaborate effectively throughout the event.</p>
@@ -1664,7 +1665,7 @@
                         <div class="event-stats">
                             <div class="prize">₹${event.prizePool.toLocaleString()}</div>
                             <div class="participants">${event.participants} participants</div>
-                            <button onclick="registerForEvent(${event.id})">Register</button>
+                            <button onclick="registerForEvent(${event.id})" >Register</button>
                         </div>
                     </div>
                     <div class="event-footer">
@@ -1680,8 +1681,10 @@
 
         function registerForEvent(id) {
             const event = sampleEvents.find(e => e.id === id);
+            
             if (event) {
                 alert(`Successfully registered for ${event.name}! Check your email for further instructions.`);
+                
             }
         }
 
