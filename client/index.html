@@ -13,16 +13,16 @@
         <div class="container">
             <div class="nav-container">
                 <div class="logo">
-                    <!--<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 19">
-  <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4.07141 14v6h5.99999v-6H4.07141Zm4.5-4h6.99999l-3.5-6-3.49999 6Zm7.99999 10c1.933 0 3.5-1.567 3.5-3.5s-1.567-3.5-3.5-3.5-3.5 1.567-3.5 3.5 1.567 3.5 3.5 3.5Z"/>
-</svg>-->
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 19">
+                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4.07141 14v6h5.99999v-6H4.07141Zm4.5-4h6.99999l-3.5-6-3.49999 6Zm7.99999 10c1.933 0 3.5-1.567 3.5-3.5s-1.567-3.5-3.5-3.5-3.5 1.567-3.5 3.5 1.567 3.5 3.5 3.5Z"/>
+                    </svg>
 
                     HackToWin
                 </div>
                 <div class="nav-links">
                     <a href="#features" class="nav-link">Features</a>
                     <a href="#how-it-works" class="nav-link">How it Works</a>
-                    <a  class="nav-link"  onclick="href='#pricing'">Pricing</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
                     <a href="#footer" class="nav-link">About</a>
                 </div>
                 <div class="auth-buttons">
@@ -358,7 +358,7 @@
                             <li><i data-lucide="check" class="icon-check"></i> Unlimited events</li>
                             <li><i data-lucide="check" class="icon-check"></i> Custom branding for events</li>
                             <li><i data-lucide="check" class="icon-check"></i> Advanced judging tools</li>
-                            <li><i data-lucide="check" class="icon-check"></i> **AI plagiarism detection**</li>
+                            <li><i data-lucide="check" class="icon-check"></i> AI plagiarism detection</li>
                             <li><i data-lucide="check" class="icon-check"></i> Priority support</li>
                         </ul>
                     </div>
@@ -386,7 +386,7 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-outline" onclick="openModal('contactModal')">Contact Sales</a>
+                        <a href="#footer" class="btn btn-outline nav-link">Contact Sales</a>
                     </div>
                 </div>
             </div>
@@ -1354,6 +1354,16 @@
 
             openModal('profileModal');
         }
+
+        document.querySelectorAll('a.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+                });
+            });
+        });
+
 
 
     </script>

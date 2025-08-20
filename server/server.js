@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 // --- Basic Setup ---
 const app = express();
@@ -28,7 +29,7 @@ mongoose.connect(dbURI)
         console.error("Could not connect to the database. Please check your connection string and network access.");
         console.error("\nOriginal Error:", err.message);
         console.error('------------------------------------');
-    });
+});
 
 // --- Database Schema & Model for Hacktowin Users ---
 
