@@ -78,46 +78,67 @@
         .nav-link:hover::after {
             width: 100%;
         }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 14px;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #667eea;
-            color: #667eea;
-        }
-        
-        .btn-outline:hover {
-            background: #667eea;
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
+       /* --- General Button Styles (for demonstration) --- */
+.btn {
+    display: block; /* Use block to allow for full width */
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 1px solid transparent;
+    box-sizing: border-box; /* Important for width calculations */
+}
+
+.btn-primary {
+    background-color: #667eea; /* Example color: Indigo */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #5a67d8;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #cbd5e0; /* Example color: Light Gray */
+    border-color: #4a5568; /* Example color: Dark Gray */
+}
+
+.btn-outline:hover {
+    background-color: #4a5568;
+    color: white;
+}
+
+
+/* --- Responsive Container for the Buttons --- */
+
+/* Mobile Styles (Default) */
+#auth-section {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 1rem;              /* Add space between the stacked buttons */
+    width: 100%;
+}
+
+#auth-section .btn {
+    width: 100%; /* Make buttons take the full width of the container */
+}
+
+/* Tablet and Desktop Styles */
+@media (min-width: 768px) {
+    #auth-section {
+        flex-direction: row; /* Place buttons side-by-side */
+        gap: 1rem;           /* Space between buttons horizontally */
+    }
+
+    #auth-section .btn {
+        width: auto; /* Let buttons size based on their content */
+    }
+}
         
         /* Scroll Reveal Animation */
     .reveal {
@@ -1483,10 +1504,13 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #ffffff;
+            color: #e6e0e0;
             font-weight: 500;
         }
-        
+        #signupRole option {
+  background-color: #2d3748; /* A dark background color */
+  color: #ffffff;           /* A light text color (white) */
+}
         .form-group input,
         .form-group select,
         .form-group textarea {
