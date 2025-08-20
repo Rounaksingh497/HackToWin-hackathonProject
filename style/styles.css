@@ -1480,10 +1480,13 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #ffffff;
+            color: #e6e0e0;
             font-weight: 500;
         }
-        
+        #signupRole option {
+  background-color: #2d3748; /* A dark background color */
+  color: #ffffff;           /* A light text color (white) */
+}
         .form-group input,
         .form-group select,
         .form-group textarea {
