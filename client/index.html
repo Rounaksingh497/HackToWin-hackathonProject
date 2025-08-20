@@ -1943,7 +1943,15 @@ function getBotResponse(userMessage) {
             });
         });
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const featureCard = document.getElementById('realtime-comm-card');
 
+        if (featureCard) {
+            featureCard.addEventListener('click', function () {
+                toggleChatbot(); // Call your existing function
+            });
+        }
+    });
 
     </script>
 </body>
