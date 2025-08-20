@@ -727,7 +727,410 @@
         </div>
     </div>
 
+    <!-- chatbot -->
+    <!-- Enhanced Chatbot Button -->
+    <button onclick="toggleChatbot()" class="chatbot-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8V4H8"/>
+            <rect width="16" height="12" x="4" y="8" rx="2"/>
+            <path d="M2 14h2"/>
+            <path d="M20 14h2"/>
+            <path d="M15 13v2"/>
+            <path d="M9 13v2"/>
+        </svg>
+    </button>
+
+    <!-- Enhanced Chatbot Window -->
+    <div id="ai-chatbot-window" class="chatbot-window">
+        <div class="chatbot-header">
+            <div>
+                <h3>AI Assistant</h3>
+                <div class="online-indicator">
+                    <div class="online-dot"></div>
+                    <span>Online</span>
+                </div>
+            </div>
+            <button onclick="toggleChatbot()" class="close-btn">&times;</button>
+        </div>
+
+        <div id="chatbot-body" class="chatbot-body">
+            <div class="message bot-msg">
+                Hi there! 👋<br>I can help you find amazing tech events! Ask me about hackathons, workshops, AI events, blockchain competitions, or any specific technology you're interested in. What would you like to explore?
+            </div>
+        </div>
+
+        <div class="chatbot-input">
+            <form id="chatbot-form">
+                <input type="text" id="chatbot-input-field" placeholder="Try 'AI hackathons' or 'online workshops'..." autocomplete="off" required>
+                <button type="submit" class="send-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
     <script>
+
+        //chatbot
+        let isOpen = false;
+        let conversationHistory = [];
+
+        function toggleChatbot() {
+            const chatWindow = document.getElementById('ai-chatbot-window');
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                chatWindow.classList.add('show');
+                document.getElementById('chatbot-input-field').focus();
+            } else {
+                chatWindow.classList.remove('show');
+            }
+        }
+
+        function addMessage(message, isUser = false) {
+            const chatBody = document.getElementById('chatbot-body');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-msg' : 'bot-msg'}`;
+            messageDiv.innerHTML = message;
+            
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            
+            return messageDiv;
+        }
+
+        function showTypingIndicator() {
+            const chatBody = document.getElementById('chatbot-body');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            typingDiv.id = 'typing-indicator';
+            
+            chatBody.appendChild(typingDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            
+            return typingDiv;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        const eventsData = [
+            // Hackathons
+            {
+                type: 'hackathon',
+                eventName: 'QuantumLeap Hackathon',
+                eventPrize: '₹5,00,000',
+                location: 'Bangalore (Offline)',
+                structure: '48-hour non-stop coding event with mentorship sessions.',
+                mode: 'Offline',
+                eligibility: 'Open to all university students and professionals.',
+                technology: ['Quantum Computing', 'AI/ML', 'Blockchain'],
+                organizer: 'Innovate India',
+                eventDate: '2025-10-15',
+                registration: 'Online via our portal. Closes on 2025-10-01.',
+                participants: 450
+            },
+            {
+                type: 'hackathon',
+                eventName: 'AI for Good Challenge',
+                eventPrize: '₹3,00,000',
+                location: 'Online',
+                structure: 'A week-long virtual hackathon to solve social problems using AI.',
+                mode: 'Online',
+                eligibility: 'Open to global participants.',
+                technology: ['Artificial Intelligence', 'Data Science', 'NLP'],
+                organizer: 'SocialTech Foundation',
+                eventDate: '2025-11-05',
+                registration: 'Register your team of 2-4 members on our website.',
+                participants: 800
+            },
+            {
+                type: 'hackathon',
+                eventName: 'CyberSecure India Hack',
+                eventPrize: '₹4,00,000',
+                location: 'Hyderabad (Offline)',
+                structure: '36-hour cybersecurity-focused hackathon with CTF challenges.',
+                mode: 'Offline',
+                eligibility: 'Students and professionals with a background in cybersecurity.',
+                technology: ['Cybersecurity', 'Ethical Hacking', 'Cryptography'],
+                organizer: 'National Cyber Security Centre',
+                eventDate: '2025-09-20',
+                registration: 'Individual or team registration available online.',
+                participants: 300
+            },
+            {
+                type: 'hackathon',
+                eventName: 'Fintech Fusion 2025',
+                eventPrize: '₹7,50,000',
+                location: 'Mumbai (Hybrid)',
+                structure: 'A 3-day event combining online workshops and an offline finale.',
+                mode: 'Hybrid',
+                eligibility: 'Startups, students, and professionals in the finance and tech sectors.',
+                technology: ['Fintech', 'Blockchain', 'API Banking'],
+                organizer: 'Bank of Tomorrow',
+                eventDate: '2025-12-01',
+                registration: 'Apply with your idea and team profile.',
+                participants: 600
+            },
+             {
+                type: 'hackathon',
+                eventName: 'Web3 Wizards',
+                eventPrize: '₹6,00,000',
+                location: 'Online',
+                structure: 'A month-long hackathon to build decentralized applications.',
+                mode: 'Online',
+                eligibility: 'Open to all developers interested in Web3.',
+                technology: ['Blockchain', 'Solidity', 'dApps'],
+                organizer: 'Decentralize Today',
+                eventDate: '2025-10-01',
+                registration: 'Join our Discord server to register and find a team.',
+                participants: 1200
+            },
+            // Workshops
+            {
+                type: 'workshop',
+                workshopName: 'Advanced JavaScript Concepts',
+                organizer: 'CodeMasters Academy',
+                workshopDate: '2025-09-25',
+                mode: 'Online',
+                details: 'A 3-hour deep dive into closures, promises, and async/await.',
+                participants: 150
+            },
+            {
+                type: 'workshop',
+                workshopName: 'Introduction to Machine Learning',
+                organizer: 'Data Science Society',
+                workshopDate: '2025-10-05',
+                mode: 'Offline at Delhi University',
+                details: 'A full-day hands-on workshop for beginners in ML.',
+                participants: 100
+            },
+            {
+                type: 'workshop',
+                workshopName: 'UI/UX Design Principles',
+                organizer: 'Design Gurus',
+                workshopDate: '2025-11-12',
+                mode: 'Online',
+                details: 'A 2-day workshop covering the fundamentals of user-centric design.',
+                participants: 250
+            },
+            {
+                type: 'workshop',
+                workshopName: 'Cloud Native with Kubernetes',
+                organizer: 'Cloud Experts',
+                workshopDate: '2025-09-30',
+                mode: 'Online',
+                details: 'Learn to deploy and manage applications at scale with Kubernetes.',
+                participants: 300
+            },
+            {
+                type: 'workshop',
+                workshopName: 'Building REST APIs with Node.js',
+                organizer: 'Backend Buffs',
+                workshopDate: '2025-10-22',
+                mode: 'Online',
+                details: 'A practical workshop on creating robust APIs with Express.',
+                participants: 200
+            },
+            // Other Events
+            {
+                type: 'Coding Competition',
+                eventName: 'CodeSprint 2025',
+                eventPrize: '₹1,50,000',
+                location: 'Online',
+                mode: 'Online',
+                organizer: 'Competitive Coders Club',
+                eventDate: '2025-09-18',
+                details: 'A 3-hour competitive programming contest with algorithmic challenges.',
+                participants: 1500
+            },
+            {
+                type: 'Design Challenge',
+                eventName: 'Designathon: Reimagining Urban Mobility',
+                eventPrize: 'Internship Opportunities',
+                location: 'Online',
+                mode: 'Online',
+                organizer: 'Urban Futures Initiative',
+                eventDate: '2025-11-20',
+                details: 'A week-long challenge to design innovative solutions for city transportation.',
+                participants: 400
+            },
+            {
+                type: 'Tech Talk',
+                eventName: 'The Future of Artificial General Intelligence',
+                organizer: 'AI Research Group',
+                eventDate: '2025-10-10',
+                mode: 'Online',
+                details: 'A talk by leading AI researchers on the path to AGI.',
+                participants: 5000
+            },
+            {
+                type: 'Startup Pitch',
+                eventName: 'Innovator\'s Pitch Night',
+                eventPrize: 'Seed Funding up to ₹25,00,000',
+                location: 'Bangalore (Offline)',
+                mode: 'Offline',
+                organizer: 'Venture Catalysts',
+                eventDate: '2025-12-10',
+                details: 'An exclusive event for early-stage startups to pitch to investors.',
+                participants: 50
+            },
+            {
+                type: 'Gaming Tournament',
+                eventName: 'E-Sports Mania 2025',
+                eventPrize: '₹2,00,000',
+                location: 'Delhi (Offline)',
+                mode: 'Offline',
+                organizer: 'Gaming Central',
+                eventDate: '2025-11-15',
+                details: 'A multi-game e-sports tournament featuring popular titles.',
+                participants: 1000
+            }
+        ];
+
+        function searchEvents(query) {
+            const searchTerms = query.toLowerCase();
+            const matches = eventsData.filter(event => {
+                const eventName = (event.eventName || event.workshopName || '').toLowerCase();
+                const type = event.type.toLowerCase();
+                const technology = (event.technology || []).join(' ').toLowerCase();
+                const location = (event.location || '').toLowerCase();
+                const organizer = event.organizer.toLowerCase();
+                const details = (event.details || event.structure || '').toLowerCase();
+                
+                return eventName.includes(searchTerms) || 
+                       type.includes(searchTerms) ||
+                       technology.includes(searchTerms) ||
+                       location.includes(searchTerms) ||
+                       organizer.includes(searchTerms) ||
+                       details.includes(searchTerms);
+            });
+            
+            return matches;
+        }
+
+        function formatEventResponse(events, query) {
+            if (events.length === 0) {
+                return `I couldn't find any events matching "${query}". Try searching for hackathons, workshops, AI, blockchain, or specific technologies! 🔍`;
+            }
+            
+            if (events.length === 1) {
+                const event = events[0];
+                const name = event.eventName || event.workshopName;
+                const date = event.eventDate || event.workshopDate;
+                const prize = event.eventPrize ? `<br>💰 <strong>Prize:</strong> ${event.eventPrize}` : '';
+                const location = event.location ? `<br>📍 <strong>Location:</strong> ${event.location}` : '';
+                const participants = event.participants ? `<br>👥 <strong>Expected Participants:</strong> ${event.participants}` : '';
+                const details = event.details || event.structure || '';
+                const registration = event.registration ? `<br>📝 <strong>Registration:</strong> ${event.registration}` : '';
+                
+                return `<strong>${name}</strong><br>📅 ${date}<br>🏢 ${event.organizer}${prize}${location}${participants}<br><br>${details}${registration}`;
+            }
+            
+            let response = `Found ${events.length} events matching "${query}":<br><br>`;
+            events.slice(0, 3).forEach((event, index) => {
+                const name = event.eventName || event.workshopName;
+                const date = event.eventDate || event.workshopDate;
+                const prize = event.eventPrize ? ` - ${event.eventPrize}` : '';
+                response += `${index + 1}. <strong>${name}</strong><br>📅 ${date} | 🏢 ${event.organizer}${prize}<br><br>`;
+            });
+            
+            if (events.length > 3) {
+                response += `...and ${events.length - 3} more! Try a more specific search for detailed info. 🎯`;
+            }
+            
+            return response;
+        }
+
+        function getBotResponse(userMessage) {
+            const query = userMessage.toLowerCase();
+            
+            // Greetings
+            if (query.includes('hello') || query.includes('hi') || query.includes('hey')) {
+                return "Hello! 👋 I'm here to help you find amazing tech events. Ask me about hackathons, workshops, coding competitions, or specific technologies like AI, blockchain, or web development!";
+            }
+            
+            // General help
+            if (query.includes('help') || query.includes('what can you do')) {
+                return "I can help you find:<br>🏆 Hackathons with prizes<br>🎓 Workshops and learning sessions<br>💻 Coding competitions<br>🎯 Events by technology (AI, blockchain, etc.)<br>📍 Events by location (online/offline)<br><br>Just ask me something like 'AI hackathons' or 'online workshops'!";
+            }
+            
+            // Search for events
+            const matchedEvents = searchEvents(userMessage);
+            
+            if (matchedEvents.length > 0) {
+                return formatEventResponse(matchedEvents, userMessage);
+            }
+            
+            // Default responses for unmatched queries
+            const fallbackResponses = [
+                "I'd love to help you find the perfect event! Try searching for specific technologies like 'AI', 'blockchain', 'JavaScript', or event types like 'hackathons' or 'workshops'. 🚀",
+                "Let me help you discover amazing events! You can ask about hackathons, workshops, coding competitions, or search by technology stack. What interests you most? 💡",
+                "I have information about tons of exciting tech events! Try asking about specific topics like 'machine learning events', 'online hackathons', or 'cybersecurity workshops'. 🎯"
+            ];
+            
+            return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+        }
+
+        // Handle form submission
+        document.getElementById('chatbot-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const input = document.getElementById('chatbot-input-field');
+            const userMessage = input.value.trim();
+            
+            if (userMessage) {
+                // Add user message
+                addMessage(userMessage, true);
+                conversationHistory.push({role: 'user', message: userMessage});
+                
+                // Clear input
+                input.value = '';
+                
+                // Show typing indicator
+                const typingIndicator = showTypingIndicator();
+                
+                // Simulate AI response delay
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const botResponse = getBotResponse(userMessage);
+                    addMessage(botResponse);
+                    conversationHistory.push({role: 'bot', message: botResponse});
+                }, Math.random() * 2000 + 1000); // Random delay between 1-3 seconds
+            }
+        });
+
+        // Handle Enter key in input field
+        document.getElementById('chatbot-input-field').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('chatbot-form').dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Close chatbot when clicking outside
+        document.addEventListener('click', function(e) {
+            const chatWindow = document.getElementById('ai-chatbot-window');
+            const chatButton = document.querySelector('.chatbot-btn');
+            
+            if (isOpen && !chatWindow.contains(e.target) && !chatButton.contains(e.target)) {
+                toggleChatbot();
+            }
+        });
+
+        // Prevent form submission from refreshing page
+        document.getElementById('chatbot-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
+
        // Initialize Lucide icons
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
@@ -825,7 +1228,7 @@
             const password = document.getElementById('loginPassword').value;
 
             try {
-                const response = await fetch('http://localhost:5001/api/auth/login', {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -859,7 +1262,7 @@
             const role = document.getElementById('signupRole').value;
 
             try {
-                const response = await fetch('http://localhost:5001/api/auth/register', {
+                const response = await fetch('http://localhost:5000/api/auth/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
