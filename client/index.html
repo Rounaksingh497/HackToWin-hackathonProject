@@ -13,10 +13,9 @@
         <div class="container">
             <div class="nav-container">
                 <div class="logo">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 19">
+                    <!--<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 19">
   <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4.07141 14v6h5.99999v-6H4.07141Zm4.5-4h6.99999l-3.5-6-3.49999 6Zm7.99999 10c1.933 0 3.5-1.567 3.5-3.5s-1.567-3.5-3.5-3.5-3.5 1.567-3.5 3.5 1.567 3.5 3.5 3.5Z"/>
-</svg>
-
+</svg>-->
 
                     HackToWin
                 </div>
@@ -38,7 +37,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero reveal">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
@@ -125,7 +124,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
+    <section class="features reveal" id="features">
         <div class="container">
             <div class="section-header">
                 <h2>Powerful Features for Every Role</h2>
@@ -187,7 +186,7 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                       <svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" clip-rule="evenodd"/>
                         </svg>
 
@@ -200,7 +199,7 @@
     </section>
 
     <!-- Dashboard Preview -->
-    <section class="dashboard-preview">
+    <section class="dashboard-preview reveal">
         <div class="container">
             <div class="dashboard-container">
                 <div class="section-header">
@@ -282,7 +281,7 @@
     </section>
 
     <!-- How it Works -->
-    <section class="how-it-works" id="how-it-works">
+    <section class="how-it-works reveal" id="how-it-works">
         <div class="container">
             <div class="section-header">
                 <h2>How HackToWin Works</h2>
@@ -313,7 +312,7 @@
         </div>
     </section>
 
-    <section class="pricing" id="pricing">
+    <section class="pricing reveal" id="pricing">
         <div class="container">
             <div class="section-header">
                 <h2>Simple & Transparent Pricing</h2>
@@ -395,7 +394,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta">
+    <section class="cta reveal">
         <div class="container">
             <div class="cta-content">
                 <h2>Ready to Start Your Innovation Journey?</h2>
@@ -744,6 +743,26 @@
                 endInput.min = today;
             }
         });
+
+        // reveal effect 
+        
+
+        const reveals = document.querySelectorAll(".reveal");
+
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+        } else {
+        entry.target.classList.remove("active"); // reset when out of view
+        }
+        });
+    }, { threshold: 0.15 }); // trigger when 15% visible
+
+    reveals.forEach(reveal => {
+    observer.observe(reveal);
+    });
+
 
         // Sample Events Data
         const sampleEvents = [
