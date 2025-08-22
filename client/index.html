@@ -1468,8 +1468,10 @@ function getBotResponse(userMessage) {
             localStorage.removeItem('token');
             const authButtons = document.querySelector('.auth-buttons');
             authButtons.innerHTML = `
-                <a href="#" class="btn btn-outline" onclick="openModal('loginModal')">Login</a>
-                <a href="#" class="btn btn-primary" onclick="openModal('signupModal')">Get Started</a>
+                <div id="auth-section">
+                    <a href="#" class="btn btn-outline" onclick="openModal('loginModal')">Login</a>
+                    <a href="#" class="btn btn-primary" onclick="openModal('signupModal')">Get Started</a>
+                </div>
             `;
             dropdownOpen = false;
             alert('You have been logged out successfully.');

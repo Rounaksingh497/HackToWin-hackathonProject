@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 require("dotenv").config();
 
 // --- Basic Setup ---
@@ -146,6 +147,14 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
+// --- Serve Frontend (HTML/CSS/JS) ---
+// Assuming your frontend is in "client" folder at project root
+app.use(express.static(path.join(__dirname, '../client')));
+
+// Fallback for SPA routes (Express 5 fix: use regex instead of '*')
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 // --- Start The Server ---
 app.listen(PORT, () => {
