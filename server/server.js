@@ -152,9 +152,15 @@ app.post('/api/auth/login', async (req, res) => {
 app.use(express.static(path.join(__dirname, '../client')));
 
 // Fallback for SPA routes (Express 5 fix: use regex instead of '*')
-app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/index.html"));
 });
+
+app.get("/payment", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/payment.html"));
+});
+
+app.use('/style', express.static(path.join(__dirname, '../style')));
 
 // --- Start The Server ---
 app.listen(PORT, () => {
