@@ -1,9 +1,5 @@
 # HackToWin - Event & Hackathon Platform  
 
-[![Contributors](https://img.shields.io/github/contributors/Rounaksingh497/HackToWin-hackathonProject?color=2b9348)](https://github.com/Rounaksingh497/HackToWin-hackathonProject/graphs/contributors)  
-[![Forks](https://img.shields.io/github/forks/Rounaksingh497/HackToWin-hackathonProject?style=social)](https://github.com/Rounaksingh497/HackToWin-hackathonProject/network/members)  
-[![Stars](https://img.shields.io/github/stars/Rounaksingh497/HackToWin-hackathonProject?style=social)](https://github.com/Rounaksingh497/HackToWin-hackathonProject/stargazers)  
-
 ---
 
 ## 🌟 Where Innovation Meets Opportunity  
